@@ -33,17 +33,17 @@ if GetDepend('RT_USING_SPI'):
 # add i2cbus driver code
 if GetDepend('RT_USING_I2C'):
     src += ['drv_i2c.c']
+	
+if GetDepend('RT_USING_SDIO'):
+	src += ['drv_sdio.c']
+	
+if GetDepend('RT_USING_LWIP'):
+	src += ['drv_eth.c', 'fsl_phy.c']
+	CPPDEFINES += ['FSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE']
 
 if GetDepend('BOARD_RT1050_EVK'):
     src += ['hyper_flash_boot.c']
-
-    if GetDepend('RT_USING_LWIP'):
-        src += ['drv_eth.c', 'fsl_phy.c']
-        CPPDEFINES += ['FSL_FEATURE_PHYKSZ8081_USE_RMII50M_MODE']
-        
-    if GetDepend('RT_USING_SDIO'):
-        src += ['drv_sdio.c']
-
+ 
     if GetDepend('RT_USING_USB_DEVICE'):
         src += Glob('usb/phy/*.c')
         CPPDEFINES += ['ENDIANNESS']
