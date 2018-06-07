@@ -35,7 +35,6 @@
 #endif
 
 #include <board.h>
-#include "hal_led.h"
 
 void dump_clock(void)
 {
@@ -116,21 +115,10 @@ void dump_link_info(void)
 #endif
 }
 
-void led_blink_thread_entry(void* parameter)
-{
-    HalLedInit();
-    HalLedBlink(HAL_LED_1,0,10,RT_TICK_PER_SECOND);
-    while (1)
-    {   
-        HalLedUpdate();
-        rt_thread_delay(50 / (1000/RT_TICK_PER_SECOND));
-    }
-}
-
 int main(void)
 {
     rt_uint32_t result;
-//    dump_clock();
+    //dump_clock();
     dump_cc_info();
     dump_link_info();
 
@@ -151,16 +139,11 @@ int main(void)
         rt_kprintf("sdcard init fail or timeout: %d!\n", result);
     }
 #endif
-    
-    rt_thread_t led_thread;
-    
-    /* 创建动态线程 ： 堆栈大小512 bytes ，优先级 21 ，时间片 2个系统滴答 */
-    led_thread = rt_thread_create("led_blink",
-                                   led_blink_thread_entry, RT_NULL,
-                                   512, 21, 2);
 
-    if (led_thread != RT_NULL)
-        rt_thread_startup(led_thread);
+    while (1)
+    {
+        rt_thread_delay(RT_TICK_PER_SECOND);
+    }
 }
 
 

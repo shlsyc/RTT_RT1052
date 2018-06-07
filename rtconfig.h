@@ -192,6 +192,7 @@
 /* example package: hello */
 
 #define SOC_IMXRT1052
+#define BOARD_USING_QSPIFLASH
 #define BOARD_RT1050_FIRE
 
 /* RT1050 Bsp Config */
@@ -200,20 +201,36 @@
 
 #define RT_USING_UART1
 
-/* Select spi bus drivers */
+/* Select spi bus and dev drivers */
 
 #define LPSPI_CLK_SOURCE_FROM_PLL3PFD1
 #define LPSPI_CLK_SOURCE 0
-#define LPSPI_CLK_SOURCE_DIVIDER 7
+#define LPSPI_CLK_SOURCE_DIVIDER 8
 #define RT_USING_SPIBUS4
 #define LPSPI4_SCK_GPIO_1
 #define LPSPI4_SDO_GPIO_1
 #define LPSPI4_SDI_GPIO_1
 
-/* Select iic drivers */
+/* Select iic bus drivers */
 
-#define LPI2C_CLOCK_SOURCE_DIVIDER 4
-#define RT_USING_I2C1
+#define RT_USING_HW_I2C1
+#define HW_I2C1_BADURATE_100kHZ
+
+/* Select lcd driver */
+
+/* Notice: Fire Board para: 800*480 4 4 8 2 40 10 58 45 */
+
+#define RT_USING_LCD
+#define LCD_WIDTH 480
+#define LCD_HEIGHT 272
+#define LCD_HFP 4
+#define LCD_VFP 4
+#define LCD_HBP 8
+#define LCD_VBP 2
+#define LCD_HSW 40
+#define LCD_VSW 10
+#define LCD_BL_PIN 106
+#define LCD_RST_PIN 45
 #define RT_USING_SDRAM
 #define RT_USING_RTC_HP
 

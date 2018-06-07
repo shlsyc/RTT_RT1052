@@ -22,7 +22,7 @@
 #include "fsl_enet.h"
 #include "fsl_gpio.h"
 #include "fsl_iomuxc.h"
-#include "fsl_phy.h"
+#include "fsl_phy_fire.h"
 #include "fsl_cache.h"
 
 #ifdef RT_USING_LWIP
@@ -35,7 +35,7 @@
 #define ENET_RXBUFF_SIZE (ENET_FRAME_MAX_FRAMELEN)
 #define ENET_TXBUFF_SIZE (ENET_FRAME_MAX_FRAMELEN)
 
-#define PHY_ADDRESS     0x02u
+#define PHY_ADDRESS     0x00u
 
 /* debug option */
 //#define ETH_RX_DUMP
@@ -44,7 +44,7 @@
 #define DBG_ENABLE
 #define DBG_SECTION_NAME    "[ETH]"
 #define DBG_COLOR
-#define DBG_LEVEL           DBG_INFO
+#define DBG_LEVEL           DBG_LOG
 #include <rtdbg.h>
 
 #define MAX_ADDR_LEN 6
@@ -170,10 +170,10 @@ static void _enet_io_init(void)
         IOMUXC_GPIO_B1_11_ENET_RX_ER,           /* GPIO_B1_11 is configured as ENET_RX_ER */
         0U);                                    /* Software Input On Field: Input Path is determined by functionality */
     IOMUXC_SetPinMux(
-        IOMUXC_GPIO_EMC_40_ENET_MDC,            /* GPIO_EMC_40 is configured as ENET_MDC */
+        IOMUXC_GPIO_AD_B1_04_ENET_MDC,            /* GPIO_EMC_40 is configured as ENET_MDC */
         0U);                                    /* Software Input On Field: Input Path is determined by functionality */
     IOMUXC_SetPinMux(
-        IOMUXC_GPIO_EMC_41_ENET_MDIO,           /* GPIO_EMC_41 is configured as ENET_MDIO */
+        IOMUXC_GPIO_B1_15_ENET_MDIO,           /* GPIO_EMC_41 is configured as ENET_MDIO */
         0U);                                    /* Software Input On Field: Input Path is determined by functionality */
     IOMUXC_SetPinConfig(
         IOMUXC_GPIO_AD_B0_09_GPIO1_IO09,        /* GPIO_AD_B0_09 PAD functional properties : */
@@ -296,7 +296,7 @@ static void _enet_io_init(void)
                                                  Pull Up / Down Config. Field: 100K Ohm Pull Up
                                                  Hyst. Enable Field: Hysteresis Disabled */
     IOMUXC_SetPinConfig(
-        IOMUXC_GPIO_EMC_40_ENET_MDC,            /* GPIO_EMC_40 PAD functional properties : */
+        IOMUXC_GPIO_AD_B1_04_ENET_MDC,            /* GPIO_EMC_40 PAD functional properties : */
         0xB0E9u);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
                                                  Speed Field: max(200MHz)
@@ -306,7 +306,7 @@ static void _enet_io_init(void)
                                                  Pull Up / Down Config. Field: 100K Ohm Pull Up
                                                  Hyst. Enable Field: Hysteresis Disabled */
     IOMUXC_SetPinConfig(
-        IOMUXC_GPIO_EMC_41_ENET_MDIO,           /* GPIO_EMC_41 PAD functional properties : */
+        IOMUXC_GPIO_B1_15_ENET_MDIO,           /* GPIO_EMC_41 PAD functional properties : */
         0xB829u);                               /* Slew Rate Field: Fast Slew Rate
                                                  Drive Strength Field: R0/5
                                                  Speed Field: low(50MHz)
